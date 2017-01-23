@@ -1,0 +1,16 @@
+Word - clean
+Files - 
+	b.txt
+	d.txt
+Word - code
+Files - 
+	a.txt
+Word - write
+Files - 
+	a.txt
+Files with words 
+ "code"
+ "clean"
+	a.txt
+	b.txt
+	d.txt

@@ -1,0 +1,73 @@
+Breakpoint 1 at 0x40078c: file test_calc.c, line 5.
+Starting program: /home/shay/a/shah255/264/hw05/a.out 
+
+Breakpoint 1, main (argc=1, argv=0x7fffffffe288) at test_calc.c:5
+5		int result = calculate("1", '+', "1");
+#0  main (argc=1, argv=0x7fffffffe288) at test_calc.c:5
+5		int result = calculate("1", '+', "1");
+1	#include <stdio.h>
+2	#include "calc.h"
+3	
+4	int main(int argc, char *argv[]) {
+5		int result = calculate("1", '+', "1");
+6		printf("1 + 1 = %d\n", result);
+7	
+8		result = calculate("0xa", '+', "3");
+9		printf("0xa + 3 = %d\n", result);
+10	
+
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000040070d in _find_base (start=0x7fffffffe120, base=0x7fffffffe118) at calc.c:59
+59		if(*start[0] == '0' && *start[1] == 'x') {
+
+Program terminated with signal SIGSEGV, Segmentation fault.
+The program no longer exists.
+Starting program: /home/shay/a/shah255/264/hw05/a.out 
+
+Breakpoint 1, main (argc=1, argv=0x7fffffffe288) at test_calc.c:5
+5		int result = calculate("1", '+', "1");
+
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000040070d in _find_base (start=0x7fffffffe120, base=0x7fffffffe118) at calc.c:59
+59		if(*start[0] == '0' && *start[1] == 'x') {
+
+Program terminated with signal SIGSEGV, Segmentation fault.
+The program no longer exists.
+Starting program: /home/shay/a/shah255/264/hw05/a.out 
+
+Breakpoint 1, main (argc=1, argv=0x7fffffffe288) at test_calc.c:5
+5		int result = calculate("1", '+', "1");
+
+Program received signal SIGSEGV, Segmentation fault.
+0x000000000040070d in _find_base (start=0x7fffffffe120, base=0x7fffffffe118) at calc.c:59
+59		if(*start[0] == '0' && *start[1] == 'x') {
+
+Program terminated with signal SIGSEGV, Segmentation fault.
+The program no longer exists.
+No breakpoint at this line.
+Starting program: /home/shay/a/shah255/264/hw05/a.out 
+
+Breakpoint 1, main (argc=1, argv=0x7fffffffe288) at test_calc.c:5
+5		int result = calculate("1", '+', "1");
+calculate (lhs_str=0x400a38 "1", operator=43 '+', rhs_str=0x400a38 "1") at calc.c:10
+10		int lhs_int = _parse_integer(lhs_str);
+_parse_integer (s=0x400a38 "1") at calc.c:29
+29		const char* start = s; // address of first digit after "0x", "0b", or "-"
+31		int sign  = 0;   // 1 if positive, -1 if negative
+32		_find_sign(&start, &sign);
+_find_sign (start=0x7fffffffe120, sign=0x7fffffffe11c) at calc.c:49
+49		if(*start[0] == '-') {
+54			*sign = 1;   // No minus sign, so mark this as positive
+56	}
+_parse_integer (s=0x400a38 "1") at calc.c:34
+34		int base  = 0;   // 10 for decimal, 16 for hexadecimal, 2 for binary
+35		_find_base(&start, &base);
+_find_base (start=0x7fffffffe120, base=0x7fffffffe118) at calc.c:59
+59		if(*start[0] == '0' && *start[1] == 'x') {
+$1 = (const char **) 0x7fffffffe120
+0x7fffffffe120:	0x38	0x0a	0x40	0x00	0x00	0x00	0x00	0x00
+$2 = 0x400a38 "1"
+$3 = 49 '1'
+Cannot access memory at address 0x1
+$4 = 0 '\000'
+Cannot access memory at address 0x1

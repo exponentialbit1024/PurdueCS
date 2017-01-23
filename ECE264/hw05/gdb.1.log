@@ -1,0 +1,62 @@
+Starting program: /home/shay/a/shah255/264/hw05/a.out 
+
+Program received signal SIGINT, Interrupt.
+0x000000000040067e in _parse_integer (s=0x400a38 "1") at calc.c:41
+41			value += start[i] - (start[i] <= '9' ? '0' : 'a' - 10);
+#0  0x000000000040067e in _parse_integer (s=0x400a38 "1") at calc.c:41
+#1  0x0000000000400587 in calculate (lhs_str=0x400a38 "1", operator=43 '+', rhs_str=0x400a38 "1") at calc.c:10
+#2  0x000000000040079c in main (argc=1, argv=0x7fffffffe288) at test_calc.c:5
+36	
+37		int value = 0;   // This will be the return value from this function
+38		int i = 0;
+39		while(start[i] != '\0') {
+40			value *= base;
+41			value += start[i] - (start[i] <= '9' ? '0' : 'a' - 10);
+42		}
+43	
+44		return value * sign;
+45	}
+$1 = -954437178
+$2 = 0
+start = 0x400a38 "1"
+sign = 1
+base = 10
+value = -954437178
+i = 0
+s = 0x400a38 "1"
+s = 0x400a38 "1"
+start = 0x400a38 "1"
+sign = 1
+base = 10
+value = -954437178
+i = 0
+39		while(start[i] != '\0') {
+40			value *= base;
+41			value += start[i] - (start[i] <= '9' ? '0' : 'a' - 10);
+39		while(start[i] != '\0') {
+40			value *= base;
+41			value += start[i] - (start[i] <= '9' ? '0' : 'a' - 10);
+39		while(start[i] != '\0') {
+40			value *= base;
+41			value += start[i] - (start[i] <= '9' ? '0' : 'a' - 10);
+39		while(start[i] != '\0') {
+40			value *= base;
+41			value += start[i] - (start[i] <= '9' ? '0' : 'a' - 10);
+$3 = 49 '1'
+1: start[i] = 49 '1'
+39		while(start[i] != '\0') {
+1: start[i] = 49 '1'
+40			value *= base;
+1: start[i] = 49 '1'
+41			value += start[i] - (start[i] <= '9' ? '0' : 'a' - 10);
+1: start[i] = 49 '1'
+39		while(start[i] != '\0') {
+1: start[i] = 49 '1'
+40			value *= base;
+1: start[i] = 49 '1'
+41			value += start[i] - (start[i] <= '9' ? '0' : 'a' - 10);
+1: start[i] = 49 '1'
+39		while(start[i] != '\0') {
+1: start[i] = 49 '1'
+40			value *= base;
+1: start[i] = 49 '1'

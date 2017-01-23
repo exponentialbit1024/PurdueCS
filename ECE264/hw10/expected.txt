@@ -1,0 +1,6 @@
+TestTeam
+- leader:  Spock
+- members: Kirk  (favorite: Spock)
+           Spock (favorite: Spock)
+           Uhura (favorite: Spock)
+           McCoy (favorite: Uhura)

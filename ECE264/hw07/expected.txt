@@ -1,0 +1,39 @@
+Population : 1
+Person on team : Sid
+Person's favorite person: Sid
+Leader : Sid
+Population : 2
+Person on team : Sid
+Person's favorite person : Sid
+Person on team : Dhiman
+Person's favorite person : Sid
+Leader  : Sid
+Population : 2
+Person on team : Sid
+Person's favorite person : Sid
+Person on team : Dhiman
+Person's favorite person : Dhiman
+Leader : Sid
+
+Population : 6
+Person on team : Sid
+Person's favorite person : Sid
+Person on team : Dhiman
+Person's favorite person : Dhiman
+Person on team : John
+Person's favorite person : Dhiman
+Person on team : Mary
+Person's favorite person : Dhiman
+Person on team : Alice
+Person's favorite person : John
+Person on team : Halie
+Person's favorite person : Sid
+Leader : Dhiman
+Population : 3
+Person on team : yoda
+Person's favorite person : yoda
+Person on team : jedi
+Person's favorite person : jedi
+Person on team : vader
+Person's favorite person : vader
+Leader : yoda

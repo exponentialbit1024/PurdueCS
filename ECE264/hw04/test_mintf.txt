@@ -1,0 +1,77 @@
+Hello World 123 0xbc
+Hello World 12321Hello World -214748364830Hello World 2147483647
+Hello World -10
+Hello World in hex -0xa
+Hello World in binary -0b1010
+Hello World -9
+Hello World in hex -0x9
+Hello World in binary -0b1001
+Hello World -8
+Hello World in hex -0x8
+Hello World in binary -0b1000
+Hello World -7
+Hello World in hex -0x7
+Hello World in binary -0b111
+Hello World -6
+Hello World in hex -0x6
+Hello World in binary -0b110
+Hello World -5
+Hello World in hex -0x5
+Hello World in binary -0b101
+Hello World -4
+Hello World in hex -0x4
+Hello World in binary -0b100
+Hello World -3
+Hello World in hex -0x3
+Hello World in binary -0b11
+Hello World -2
+Hello World in hex -0x2
+Hello World in binary -0b10
+Hello World -1
+Hello World in hex -0x1
+Hello World in binary -0b1
+Hello World 0
+Hello World in hex 0x0
+Hello World in binary 0b0
+Hello World 1
+Hello World in hex 0x1
+Hello World in binary 0b1
+Hello World 2
+Hello World in hex 0x2
+Hello World in binary 0b10
+Hello World 3
+Hello World in hex 0x3
+Hello World in binary 0b11
+Hello World 4
+Hello World in hex 0x4
+Hello World in binary 0b100
+Hello World 5
+Hello World in hex 0x5
+Hello World in binary 0b101
+Hello World 6
+Hello World in hex 0x6
+Hello World in binary 0b110
+Hello World 7
+Hello World in hex 0x7
+Hello World in binary 0b111
+Hello World 8
+Hello World in hex 0x8
+Hello World in binary 0b1000
+Hello World 9
+Hello World in hex 0x9
+Hello World in binary 0b1001
+Hello World 10
+Hello World in hex 0xa
+Hello World in binary 0b1010
+11 in hex is 0xb
+11 in binary is 0b1011
+0xb in binary is 0b1011
+Hello World owes me $100.37
+I owe Hello World -$100.37
+How about some more $$ $1000.99Hello string time 653 World
+Hello w orld
+Hello % rogue lone %
+%
+Hello actual %
+Hello unnecessary %z
+Hello combos! 765421 0xbaded world e $649.99
