@@ -14,8 +14,8 @@ public class QuickUnionUF {
     public int count() {
         return count;
     }
-  
-   
+
+
     public int find(int p) {
         validate(p);
         while (p != parent[p])
@@ -31,22 +31,22 @@ public class QuickUnionUF {
         }
     }
 
-   
+
     public boolean connected(int p, int q) {
         return find(p) == find(q);
     }
 
-  
-    
+
+
     public void union(int p, int q) {
         int rootP = find(p);
         int rootQ = find(q);
         if (rootP == rootQ) return;
-        parent[rootP] = rootQ; 
+        parent[rootP] = rootQ;
         count--;
     }
 
-    
+
     public static void main(String[] args) {
         int n = StdIn.readInt();
         QuickUnionUF uf = new QuickUnionUF(n);

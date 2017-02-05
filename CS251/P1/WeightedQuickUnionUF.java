@@ -3,7 +3,7 @@ public class WeightedQuickUnionUF {
     private int[] size;     // size[i] = number of sites in subtree rooted at i
     private int count;      // number of components
 
-  
+
     public WeightedQuickUnionUF(int n) {
         count = n;
         parent = new int[n];
@@ -14,12 +14,12 @@ public class WeightedQuickUnionUF {
         }
     }
 
-   
+
     public int count() {
         return count;
     }
-  
-   
+
+
     public int find(int p) {
         validate(p);
         while (p != parent[p])
@@ -31,16 +31,16 @@ public class WeightedQuickUnionUF {
     private void validate(int p) {
         int n = parent.length;
         if (p < 0 || p >= n) {
-            throw new IndexOutOfBoundsException("index " + p + " is not between 0 and " + (n-1));  
+            throw new IndexOutOfBoundsException("index " + p + " is not between 0 and " + (n-1));
         }
     }
 
-    
+
     public boolean connected(int p, int q) {
         return find(p) == find(q);
     }
 
- 
+
     public void union(int p, int q) {
         int rootP = find(p);
         int rootQ = find(q);
@@ -59,7 +59,7 @@ public class WeightedQuickUnionUF {
     }
 
 
-    
+
     public static void main(String[] args) {
         int n = StdIn.readInt();
         WeightedQuickUnionUF uf = new WeightedQuickUnionUF(n);
