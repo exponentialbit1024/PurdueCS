@@ -1,16 +1,16 @@
 import java.util.*;
 
-public class Percolation{
+public class PercolationQuick{
   private int size;
   public boolean[][] openedGrid;
-  private WeightedQuickUnionUF quickFind;
+  private QuickUnionUF quickFind;
   private int top;
   private int bottom = 0;
 
-  public Percolation (int n){
+  public PercolationQuick(int n){
     size = n;
     top = size * size + 1;
-    quickFind = new WeightedQuickUnionUF(size * size + 2);
+    quickFind = new QuickUnionUF(size * size + 2);
     openedGrid = new boolean[size][size];
   }
 
