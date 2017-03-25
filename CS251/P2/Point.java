@@ -49,11 +49,11 @@ public class Point implements Comparable<Point>{
         this.y = y;
     }
 
-    public int xGetter(){
+    public int getX(){
       return this.x;
     }
 
-    public int yGetter(){
+    public int getY(){
       return this.y;
     }
 
@@ -108,4 +108,8 @@ public class Point implements Comparable<Point>{
       return 1;
     }
 
+    @Override
+    public int hashCode() {
+        return (x + "" + y).hashCode();
+    }
 }

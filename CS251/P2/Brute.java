@@ -3,62 +3,28 @@ import java.io.*;
 
 public class Brute{
 
+  public String finalStr = "";
+
   public Brute(){
   }
 
   public void printerFn(Point[] colPoints){
-    System.out.print("4:(");
-    System.out.print(colPoints[0].xGetter());
-    System.out.print(",");
-    System.out.print(colPoints[0].yGetter() + ") -> (");
 
-    System.out.print(colPoints[1].xGetter());
-    System.out.print(",");
-    System.out.print(colPoints[1].yGetter() + ") -> (");
+    StringBuilder sb = new StringBuilder();
 
-    System.out.print(colPoints[2].xGetter());
-    System.out.print(",");
-    System.out.print(colPoints[2].yGetter() + ") -> (");
+    sb.append("4:(").append(colPoints[0].getX()).append(", ").append(colPoints[0].getY() + ") -> (").append(colPoints[1].getX());
+    sb.append(", ").append(colPoints[1].getY() + ") -> (").append(colPoints[2].getX()).append(", ").append(colPoints[2].getY() + ") -> (");
+    sb.append(colPoints[3].getX()).append(", ").append(colPoints[3].getY() + ")");
 
-    System.out.print(colPoints[3].xGetter());
-    System.out.print(",");
-    System.out.println(colPoints[3].yGetter() + ")");
-
-    BufferedWriter bw = null;
-    File oFile = new File("./visualPoints.txt");
-    FileWriter fw;
-
-    try{
-      if (!oFile.exists()) {
-	     oFile.createNewFile();
-	    }
-      fw = new FileWriter(oFile, true);
-      bw = new BufferedWriter(fw);
-
-      bw.write("4:(");
-      bw.write(Integer.toString(colPoints[0].xGetter()));
-      bw.write(",");
-      bw.write(Integer.toString(colPoints[0].yGetter()) + ") -> (");
-
-      bw.write(Integer.toString(colPoints[1].xGetter()));
-      bw.write(",");
-      bw.write(Integer.toString(colPoints[1].yGetter()) + ") -> (");
-
-      bw.write(Integer.toString(colPoints[2].xGetter()));
-      bw.write(",");
-      bw.write(Integer.toString(colPoints[2].yGetter()) + ") -> (");
-
-      bw.write(Integer.toString(colPoints[3].xGetter()));
-      bw.write(",");
-      bw.write(Integer.toString(colPoints[3].yGetter()) + ")");
-      bw.write("\n");
-      bw.close();
-    }catch(IOException e){
-
-    }
+    System.out.println(sb.toString());
+    finalStr += sb.toString();
+    finalStr += "\n";
   }
 
   public static void main(String[] args){
+
+    long startTime = System.currentTimeMillis();
+
     Scanner stdinOb = new Scanner(System.in);
     int numPoints = stdinOb.nextInt();
     Brute usageObj = new Brute();
@@ -79,9 +45,9 @@ public class Brute{
 
     for(int j = 0; j < pointAdder - 3; j++){
       combo4[0] = allPoints[j];
-      for(int k = j + 1;k < pointAdder;k++){
+      for(int k = j + 1;k < pointAdder - 2;k++){
         combo4[1] = allPoints[k];
-        for(int i = k + 1; i < pointAdder;i++){
+        for(int i = k + 1; i < pointAdder - 1;i++){
           combo4[2] = allPoints[i];
           for(int y = i + 1;y < pointAdder; y++){
             combo4[3] = allPoints[y];
@@ -93,5 +59,27 @@ public class Brute{
         }
       }
     }
+
+    BufferedWriter bw = null;
+    File oFile = new File("./visualPoints.txt");
+    FileWriter fw;
+
+    try{
+      if (!oFile.exists()) {
+	     oFile.createNewFile();
+	    }
+      fw = new FileWriter(oFile);
+      bw = new BufferedWriter(fw);
+
+      bw.write(usageObj.finalStr);
+      bw.write("\n");
+      bw.close();
+    }catch(IOException e){
+
+    }
+
+    // long endTime = System.currentTimeMillis();
+    // double difference = ((double)endTime - startTime) / 1000;
+//    System.out.println("Fast Time:" + difference);
   }
 }

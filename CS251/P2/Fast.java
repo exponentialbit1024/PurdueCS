@@ -2,24 +2,32 @@ import java.util.*;
 import java.io.*;
 
 public class Fast{
-  public Fast(){
 
+  private static HashMap<Point, ArrayList<Double>> pointCol = new HashMap<Point, ArrayList<Double>>();
+  public String finalStr = "";
+
+  public boolean mapExist(Point point, double slope){
+    if(pointCol.containsKey(point)){
+      for(double allSl : pointCol.get(point)){
+        if(allSl == slope){
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
-  public void getOverlapped(Point[] first, Point[] second){
-    HashSet<Point> set1 = new HashSet<Point>(Arrays.asList(first));
-    HashSet<Point> setT = new HashSet<Point>(Arrays.asList(first));
-    HashSet<Point> set2 = new HashSet<Point>(Arrays.asList(second));
-    set1.retainAll(set2);
-
-    Point[] differences = set1.toArray(new Point[0]);
-    for(int u = 0; u < differences.length; u++){
-      System.out.print(differences[u].xGetter() + " ");
+  public void addMap(Point point, double slope){
+    if(!pointCol.containsKey(point)){
+      pointCol.put(point, new ArrayList<Double>());
     }
-    System.out.println();
+    pointCol.get(point).add(slope);
   }
 
   public static void main(String[] args){
+
+    long startTime = System.currentTimeMillis();
+
     Scanner stdinOb = new Scanner(System.in);
     int numPoints = stdinOb.nextInt();
     Fast usageObj = new Fast();
@@ -33,42 +41,76 @@ public class Fast{
       allPoints[pointAdder] = newPoint;
       pointAdder++;
     }
-    ArrayList<Point[]> collinearPts = new ArrayList<Point[]>();
-    for(int i = 0; i < pointAdder; i++){
+
+    Point[] tempAllPts = new Point[numPoints];
+    System.arraycopy(allPoints, 0 , tempAllPts, 0, numPoints);
+
+    ArrayList<Point[]> tracker = new ArrayList<Point[]>();
+
+    for(int i = 0; i < pointAdder;i++){
+      System.arraycopy(tempAllPts, 0 , allPoints, 0, numPoints);
       Arrays.sort(allPoints, allPoints[i].BY_SLOPE_ORDER);
 
-        // System.out.println("Here");
-        // for(int l = 0; l < allPoints.length;l++){
-          // System.out.print(allPoints[l].xGetter() + " ");
-        // }
-        // System.out.println();
-
-      ArrayList<Point> subColPts = new ArrayList<Point>();
-      for(int j = 0; j < pointAdder - 1; j++){
-        for(int r = 0; r < pointAdder - 1; r++){
-          if(i == j){
-            continue;
+      double lastSlope = allPoints[0].slopeCalc(allPoints[1]);
+      double curSlope = 0.0;
+      int newIdx = 1;
+      for(int j = 2; j < pointAdder; j++){
+        curSlope = allPoints[0].slopeCalc(allPoints[j]);
+        if(curSlope != lastSlope || j == pointAdder - 1){
+          if(curSlope == lastSlope){
+            j++;
           }
-          if(subColPts.isEmpty()){
-            subColPts.add(allPoints[i]);
+          if(j >= newIdx + 3 && !usageObj.mapExist(allPoints[0], lastSlope)){
+            Point[] subTracker = new Point[j - newIdx + 1];
+            subTracker[0] = allPoints[0];
+            usageObj.addMap(allPoints[0], lastSlope);
+            int m = 1;
+            for(int k = newIdx; k < j;k++){
+              subTracker[m] = allPoints[k];
+              m++;
+              usageObj.addMap(allPoints[k], lastSlope);
+            }
+            tracker.add(subTracker);
           }
-          if(allPoints[i].slopeCalc(allPoints[r]) == allPoints[j].slopeCalc(allPoints[r])){
-            subColPts.add(allPoints[j]);
-          }
+          newIdx = j;
+          lastSlope = curSlope;
         }
-
       }
-      Point[] tsubColpt = subColPts.toArray(new Point[subColPts.size()]);
-      collinearPts.add(tsubColpt);
     }
-    for(int y = 0; y < collinearPts.size() - 1; y++){
-      Point[] first = collinearPts.get(y);
-      Point[] second = collinearPts.get(y+1);
-      usageObj.getOverlapped(first, second);
-      // for(int u = 0; u < collinearPts.get(y).length; u++){
-        // System.out.print(collinearPts.get(y)[u].xGetter() + " ");
-      // }
-      // System.out.println();
+
+    for(int t = 0; t < tracker.size(); t++){
+      Arrays.sort(tracker.get(t));
+      int arrayl = tracker.get(t).length;
+      StringBuilder sb = new StringBuilder();
+      sb.append(arrayl + ":(").append(tracker.get(t)[0].getX() + ", " + tracker.get(t)[0].getY() + ")");
+      for(int q = 1; q < arrayl - 1;q++){
+        sb.append(" -> (").append(tracker.get(t)[q].getX() + ", " + tracker.get(t)[q].getY() +")");
+      }
+      sb.append(" -> (" + tracker.get(t)[arrayl - 1].getX() + ", " + tracker.get(t)[arrayl - 1].getY() + ")");
+
+      System.out.println(sb);
+      usageObj.finalStr += sb.toString();
+      usageObj.finalStr += "\n";
     }
+
+    BufferedWriter bw = null;
+    File oFile = new File("./visualPoints.txt");
+    FileWriter fw;
+    try{
+      if (!oFile.exists()) {
+       oFile.createNewFile();
+      }
+      fw = new FileWriter(oFile);
+      bw = new BufferedWriter(fw);
+
+      bw.write(usageObj.finalStr);
+      bw.write("\n");
+      bw.close();
+    }catch(IOException e){
+      e.printStackTrace();
+    }
+    //long endTime = System.currentTimeMillis();
+  //  double difference = ((double)endTime - startTime) / 1000;
+    //System.out.println("Fast Time:" + difference);
   }
 }
