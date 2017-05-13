@@ -84,8 +84,8 @@ int main(int argc, char *argv[]){
 	initialize(argc, argv);
   Brute *usageObj = new Brute(table_filename);
   usageObj -> decrypt(encrypted);
-	timer.toc();
-	std::cout << "Time: ";
-	std::cout << timer.elapsed() << '\n';
+	// timer.toc();
+	// std::cout << "Time: ";
+	// std::cout << timer.elapsed() << '\n';
 	return 0;
 }

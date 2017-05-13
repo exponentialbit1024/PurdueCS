@@ -57,11 +57,11 @@ void Symbol::perm1String(int position, std::string currPerm){
 		// ssum.show();
 		auto search = S.find(subtraction.returnEnc());
 		if(search != S.end()){
-			if(C % 2 == 0){
-					std::cout << currPerm.substr(0, C/2);
-			}else{
-				std::cout << currPerm.substr(0, C/2 + 1);
-			}
+			// if(C % 2 == 0){
+					// std::cout << currPerm.substr(0, C/2);
+			// }else{
+				std::cout << currPerm.substr(0, C/2);
+			// }
 
 			std::cout << S[subtraction.returnEnc()].substr(C/2,C) << '\n';
 		}
@@ -121,8 +121,8 @@ int main(int argc, char *argv[]){
 
 	Symbol *usageObj = new Symbol(table_filename);
   usageObj -> decrypt(encrypted);
-	timer.toc();
-	std::cout << "Time : ";
-	std::cout << timer.elapsed() << '\n';
+	// timer.toc();
+	// std::cout << "Time : ";
+	// std::cout << timer.elapsed() << '\n';
 	return 0;
 }
