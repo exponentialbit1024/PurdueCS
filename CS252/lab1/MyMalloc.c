@@ -125,7 +125,7 @@ static void * allocateObject(size_t size)
   FreeObject *p = _freeList -> free_list_node._next;
   while(p != _freeList){
     BoundaryTag bt = p -> boundary_tag;
-    if (getSize(bt) >= roundedSize && getSize(bt) < roundedSize + sizeof(FreeObject) + 8) {
+    if (getSize(*bt) >= roundedSize && getSize(*bt) < roundedSize + sizeof(FreeObject) + 8) {
       printf("Got it");
     }
    p = p->free_list_node._next;
