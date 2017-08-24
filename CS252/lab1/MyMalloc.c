@@ -122,9 +122,9 @@ static void * allocateObject(size_t size)
   pthread_mutex_unlock(&mutex);
 
   size_t roundedSize = (size + sizeof(FreeObject) + 7) & ~7;
-  FreeObject *p = _freeList -> free_list_node._next;
-  while(p.free_list_node != _freeList){
-    if (getSize(p.boundary_tag) >= roundedSize && getSize(p.boundary_tag) < roundedSize + sizeof(FreeObject) + 8) {
+  FreeListNode *p = _freeList -> free_list_node._next;
+  while(p != _freeList){
+    if (getSize(p->boundary_tag) >= roundedSize && getSize(p->boundary_tag) < roundedSize + sizeof(FreeObject) + 8) {
       printf("Got it");
     }
   }
