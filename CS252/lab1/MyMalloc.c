@@ -123,7 +123,11 @@ static void * allocateObject(size_t size)
 
   size_t roundedSize = (size + sizeof(FreeObject) + 7) & ~7;
   FreeListNode *p = _freeList -> free_list_node._next;
-
+  while(p != _freeList){
+    if (getSize(p) >= roundedSize && getSize(p) < roundedSize + sizeof(FreeObject) + 8) {
+      printf("Got it");
+    }
+  }
   return getMemoryFromOS(size);
 }
 
