@@ -11,6 +11,7 @@ main( int argc, char **argv )
 
   printf("Before any allocation\n");
   print_list();
+  printf("Hello world!\n");
 
   //test designed to coalesce from both sides of a block
   int * mem1 = (int *) malloc( 8 );
