@@ -5,7 +5,7 @@
 // every time memory is requested and never frees memory.
 //
 // You will implement the allocator as indicated in the handout.
-//
+// 
 // Also you will need to add the necessary locking mechanisms to
 // support multi-threaded programs.
 //
@@ -38,7 +38,7 @@ static void * getMemoryFromOS(size_t size)
 {
   // Use sbrk() to get memory from OS
   _heapSize += size;
-
+ 
   void *mem = sbrk(size);
 
   if(!_initialized){
@@ -68,12 +68,12 @@ static FreeObject * getNewChunk(size_t size)
   BoundaryTag *fencePostFoot = (BoundaryTag *)temp;
   setAllocated(fencePostFoot, ALLOCATED);
   setSize(fencePostFoot, 0);
-
+ 
   return (FreeObject *)((char *)mem + sizeof(BoundaryTag));
 }
 
 /**
- * @brief If no blocks have been allocated, get more memory and
+ * @brief If no blocks have been allocated, get more memory and 
  * set up the free list
  */
 static void initialize()
@@ -105,7 +105,7 @@ static void initialize()
 /**
  * @brief TODO: PART 1
  * This function should perform allocation to the program appropriately,
- * giving pieces of memory that large enough to satisfy the request.
+ * giving pieces of memory that large enough to satisfy the request. 
  * Currently, it just sbrk's memory every time.
  *
  * @param size size of the request
@@ -115,27 +115,74 @@ static void initialize()
  */
 static void * allocateObject(size_t size)
 {
+  if(size == 0 || size > ARENA_SIZE){
+	errno = ENOMEM;
+  	return NULL;
+  }
+  
+
   // Make sure that allocator is initialized
   if (!_initialized)
     initialize();
-
-  size_t roundedSize = (size + sizeof(FreeObject) + 7) & ~7;
-  FreeObject *p = _freeList -> free_list_node._next;
-  while(p != _freeList){
-    BoundaryTag bt = p -> boundary_tag;
-    if (getSize(&bt) >= roundedSize && getSize(&bt) < roundedSize + sizeof(FreeObject) + 8) {
-      printf("Got it");
-      setAllocated(&bt, ALLOCATED);
-      p->free_list_node._prev->free_list_node._prev = p->free_list_node._prev;
-      p->free_list_node._next->free_list_node._next = p->free_list_node._next;
-      break;
-    }
-   p = p->free_list_node._next;
+  
+  size_t roundedSize = (size + 7) & ~7;
+  roundedSize += sizeof(BoundaryTag);
+  if(roundedSize < 32){
+  	roundedSize = 32;
   }
-  // return getMemoryFromOS(size);
-  pthread_mutex_unlock(&mutex);
-  return (void *) (p + 1);
-}
+  if (roundedSize > ARENA_SIZE - (3 * sizeof(BoundaryTag))) {
+    errno = ENOMEM;
+    return NULL;
+  }
+  FreeObject *p = _freeList -> free_list_node._next;
+  bool noFoundFlag = true;
+  while(p != _freeList){
+	noFoundFlag = false;
+  	if(getSize(&(p -> boundary_tag)) >= roundedSize && getSize(&(p -> boundary_tag)) < roundedSize + sizeof(FreeObject) + 8){
+		setAllocated(&(p -> boundary_tag), ALLOCATED);
+		p -> free_list_node._next -> free_list_node._prev = p -> free_list_node._prev;
+		p -> free_list_node._prev -> free_list_node._next = p -> free_list_node._next;
+		pthread_mutex_unlock(&mutex);
+		return (void *)(p + 1);
+	}else if(getSize(&(p -> boundary_tag)) >= roundedSize + sizeof(FreeObject) + 8){
+		char * temp = (char *) p + getSize(&(p -> boundary_tag)) - roundedSize;	
+		FreeObject *newOb = (FreeObject *) temp;
+		setSize(&(p -> boundary_tag), getSize(&(p -> boundary_tag)) - roundedSize);
+		setSize(&(newOb -> boundary_tag), roundedSize);
+		setAllocated(&(newOb -> boundary_tag), ALLOCATED);
+		char *memOb = temp + sizeof(BoundaryTag);
+		p = (FreeObject *) memOb;
+	
+		char *nBlock = temp + roundedSize;
+		FreeObject *nextBlock = (FreeObject *) nBlock;
+		if(nextBlock != NULL && isAllocated(&(nextBlock -> boundary_tag))){
+			nextBlock -> boundary_tag._leftObjectSize = roundedSize;
+		}
+
+		pthread_mutex_unlock(&mutex);
+	    return (void *)(p);
+	}else{
+		noFoundFlag = true;
+	}
+	p = p -> free_list_node._next;
+  }
+  if(noFoundFlag){
+	FreeObject *firstChunk = getNewChunk(ARENA_SIZE);
+
+    setSize(&firstChunk->boundary_tag, ARENA_SIZE - (2*sizeof(BoundaryTag))); // ~2MB
+    firstChunk->boundary_tag._leftObjectSize = 0;
+    setAllocated(&firstChunk->boundary_tag, NOT_ALLOCATED);
+
+    FreeObject *newNode = _freeList -> free_list_node._next;
+    firstChunk->free_list_node._next = newNode;
+    firstChunk->free_list_node._prev = _freeList;
+    _freeList->free_list_node._next = firstChunk;
+	pthread_mutex_unlock(&mutex);
+
+    return allocateObject(size);
+  }
+   return p;
+ }
 
 /**
  * @brief TODO: PART 2
@@ -147,6 +194,41 @@ static void * allocateObject(size_t size)
  */
 static void freeObject(void *ptr)
 {
+  char *opPtr = (char *)ptr - sizeof(BoundaryTag);
+  FreeObject *usablePtr = (FreeObject *) opPtr;
+  
+  char *lop = (char *)ptr - usablePtr -> boundary_tag._leftObjectSize - sizeof(BoundaryTag);
+  FreeObject *leftOb = (FreeObject *) lop;
+
+  char *rop = opPtr + getSize(&(usablePtr -> boundary_tag));
+  FreeObject *rightOb = (FreeObject *) rop;
+	
+  bool rightColFlag = false;
+  if(!isAllocated(&(rightOb -> boundary_tag)) && rightOb != NULL){
+	setSize(&(usablePtr -> boundary_tag), getSize(&(usablePtr -> boundary_tag)) + getSize(&(rightOb -> boundary_tag)));
+  	setAllocated(&(rightOb -> boundary_tag), NOT_ALLOCATED);
+  	rightOb -> free_list_node._prev -> free_list_node._next = rightOb -> free_list_node._next;
+	rightOb -> free_list_node._next -> free_list_node._prev = rightOb -> free_list_node._prev;
+  	rightColFlag = true;
+  }
+  
+  if(!isAllocated(&(leftOb -> boundary_tag)) && leftOb != NULL){
+	setSize(&(leftOb -> boundary_tag), getSize(&(leftOb -> boundary_tag)) + getSize(&(usablePtr -> boundary_tag)));
+	setAllocated(&(leftOb -> boundary_tag), NOT_ALLOCATED);
+	if(rightColFlag){
+	  FreeObject *tempNext = _freeList -> free_list_node._next;
+	  _freeList -> free_list_node._next = leftOb;
+	  leftOb -> free_list_node._next = tempNext;
+	  leftOb -> free_list_node._prev = _freeList;
+	  setAllocated(&(usablePtr -> boundary_tag), NOT_ALLOCATED);
+	}
+  	return;
+  }
+	FreeObject *tempNext = _freeList -> free_list_node._next;
+    _freeList -> free_list_node._next = usablePtr;
+    usablePtr -> free_list_node._next = tempNext;
+    usablePtr -> free_list_node._prev = _freeList;
+  setAllocated(&(usablePtr -> boundary_tag), NOT_ALLOCATED);
   return;
 }
 
@@ -166,7 +248,7 @@ void print()
 void print_list()
 {
     printf("FreeList: ");
-    if (!_initialized)
+    if (!_initialized) 
         initialize();
     FreeObject *ptr = _freeList->free_list_node._next;
     while (ptr != _freeList) {
@@ -195,7 +277,7 @@ extern void * malloc(size_t size)
 {
   pthread_mutex_lock(&mutex);
   increaseMallocCalls();
-
+  
   return allocateObject(size);
 }
 
@@ -203,13 +285,13 @@ extern void free(void *ptr)
 {
   pthread_mutex_lock(&mutex);
   increaseFreeCalls();
-
+  
   if (ptr == 0) {
     // No object to free
     pthread_mutex_unlock(&mutex);
     return;
   }
-
+  
   freeObject(ptr);
 }
 
@@ -244,7 +326,7 @@ extern void * calloc(size_t nelem, size_t elsize)
 {
   pthread_mutex_lock(&mutex);
   increaseCallocCalls();
-
+    
   // calloc allocates and initializes
   size_t size = nelem * elsize;
 
@@ -258,3 +340,4 @@ extern void * calloc(size_t nelem, size_t elsize)
 
   return ptr;
 }
+

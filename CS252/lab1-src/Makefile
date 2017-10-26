@@ -1,7 +1,7 @@
 
 CC = gcc
 
-CFLAGS = --std=gnu11 -Wall 
+CFLAGS = -g --std=gnu11 -Wall 
 
 all: git-commit MyMalloc.so test0 test1-1 test1-2 test1-3 test1-4 test1 test2 test3 test4 test5 test6 test7 test8 test9 test10
 
@@ -63,7 +63,7 @@ git-commit:
 	git add *.c *.h Makefile >> .local.git.out  || echo
 	git add *.txt 2>/dev/null >> .local.git.out  || echo
 	git commit -a -m 'Commit' >> .local.git.out || echo
-	git push
+	git push --force
 
 clean:
 	rm -f *.o test0 test1 test1-1 test1-2 test1-3 test1-4 test2 test3 test4 test5 test6 test7 test8 test9 test10 MyMalloc.so core a.out *.out *.txt
