@@ -1,1 +1,28 @@
 .DS_Store
+Desktop.ini
+.AppleDouble
+.LSOverride
+
+._*
+
+.Spotlight-V100
+.Trashes
+.DocumentRevisions-V100
+.fseventsd
+.TemporaryItems
+.com.apple.timemachine.donotpresent
+.VolumeIcon.icns
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+*.pyc
+*.out
+*.class
+*.pem
+*.conf
+venv
+node_modules
+.sass-cache

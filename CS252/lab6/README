@@ -1,0 +1,20 @@
+Names:
+
+Siddharth Shah	shah255@purdue.edu
+Dhiman Swadia	dswadia@purdue.edu
+
+Project Name: Syllabot
+Description:
+
+Syllabot is a chatbot that chats with you, giving you information about a pre-defined class. For starters, this bot will support the CS252 syllabus for Fall 2017. The bot will have machine learning based natural language understanding, and reply with the best possible answers to the user's questions pertaining to the syllabus of the course. This information will be initially hard-coded, but later, might be parsed via a document analysis algorithm.
+
+Technologies:
+
+ReactJS - The front-end will be written in ReactJS library
+NodeJS - The front-end will be hosted via a Node server
+Python(Flask) - The back-end and data processing will happen over Flask server in python
+Github - For hosting the repository
+Heroku - For hosting the Node and Python Servers
+Tensorflow - For performing NLU operations
+Word2Vec - For performing NLU operations
+MySQL - For storing training and testing data

@@ -1,0 +1,24 @@
+Part 1:
+	Step 3:
+	
+		The count and count_spin files have a pointer invalid conversions type casted to int of different sized.
+	Also, the thr1 and thr2 are compiled with lpthread library in g++ to include the necessary dependencies of pthread
+
+	Step 5:
+
+		Since the parent thread T1 which calls the printC is created before any child threads that could print A or B, the call to printC never exits the while(1) to spawn the threads T2 and T3 printing A and B.
+
+Part 3:
+
+	Execution Table
+
+												System Time (Kernel)	User Time	Real Time
+	pthread_mutex(count)						1.52 s					2.24 s		2.083 s
+
+	spin_lock (count_spin with thr_yield())		0.28 s					0.71 s		0.527 s
+
+	spin_lock (count_spin without thr_yield())	0  s					3.35 s		1.751 s
+
+	1) The count_spin without thr_yield will not let the CPU exit the thread and let it compute other threads, while the yield will let the CPU do so. Since the thread is not allowed to exit before the lock computation, it takes more time to finish the entire execution due to each thread getting entire CPU cycle until the locked computation finishes. Since all the computation takes place in user space the system time is 0 for count_spin without yield, and all that computation takes place in user time increasing it to be more than the count_spin with yield.
+
+	2) The count uses mutex, which is fair there-by allotting the free time to other CPU processes. Count does this by suspending threads for the CPU to process other things, while count_spin with thr_yield doesn't let CPU compute other process by continuing to spin the current thread until the computation is finished. The difference between the system time comes from the same fact that the mutex lock suspends the computation in favor of other processes for the CPU to execute, which leads to it taking more time to finish its own computation, since mutex is more fair. The spin_lock however completes all its computation before letting the CPU compute anything else, which leads to faster completion of code, meaning a less consumption of system time.

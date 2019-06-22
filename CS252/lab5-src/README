@@ -1,0 +1,6 @@
+jj-mod doesn't work
+No extra-credit work
+There aren't buttons on the directory listing for sorting, but it does work with given flags
+/dir1/?D=0;d=1 sorts ascending by date /dir1/?D=1;d1 sorts descending by date
+/dir1/?D=0 sorts ascending by name /dir1/?D=1 sorts descending by name
+The log file works with a few printing bugs but has all the contents requested

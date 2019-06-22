@@ -1,0 +1,23 @@
+
+---- Running test1 ---
+Before any allocation
+FreeList: [offset:16,size:2093008]->
+mem1 = malloc(8)
+FreeList: [offset:16,size:2092976]->
+mem2 = malloc(8)
+FreeList: [offset:16,size:2092944]->
+mem3 = malloc(8)
+FreeList: [offset:16,size:2092912]->
+free(mem2))
+FreeList: [offset:2092960,size:32]->[offset:16,size:2092912]->
+free(mem1))
+FreeList: [offset:2092960,size:64]->[offset:16,size:2092912]->
+
+-------------------
+HeapSize:	2097152 bytes
+# mallocs:	4
+# reallocs:	0
+# callocs:	0
+# frees:	2
+
+-------------------

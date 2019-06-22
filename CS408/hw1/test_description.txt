@@ -1,0 +1,36 @@
+input1.txt - All valid input with small n,a,b
+input2.txt - Test to check for larger b small n
+input3.txt - Test to check for a != 1 and valid inputs
+input3a.txt - Test to check for a != 1 and valid inputs b > t
+input4.txt - Test for large b and time
+input5.txt - Test for large T
+input6.txt - Test for large N
+input7a.txt - Test for empty N
+input7b.txt - Test for empty A
+input7c.txt - Test for empty B
+input8.txt - Test for insufficient inputs for given N
+input9.sh - Test for output file
+input10a.py - Test for proper output
+input10b.sh - Test for proper error output
+input11a.txt - Test for invalid n
+input11b.txt - Test for invalid a
+input11c.txt - Test for invalid b
+input12.txt - Test for invalid sword records
+input13.txt - N > b
+input14.txt - b > T
+input15.txt - T > b
+input16.txt - a = b
+input17.txt - Test for duplicate time records
+input18.sh - Test for no input.txt file
+input19.txt - Test for N > b - a
+input20.txt - Test for out N > 50000
+input21.txt - Test for out A > 1000000000
+input22.txt - Test for out B > 1000000000
+input23.txt - Test for out N < 1
+input24.txt - Test for out A < 1
+input25.txt - Test for out B < 1
+input26.txt - Test for blank input file
+input27.txt - Test for A > B
+input28.txt - Test for negative A and B
+input29.txt - Test for maximum inputs
+input30.py - Test for timeout

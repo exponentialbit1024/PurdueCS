@@ -1,0 +1,19 @@
+./meow < input1
+./meow < input2
+./meow < input3
+./meow < input4
+./meow < input5
+./meow < input6
+./meow < input7
+./meow < input8
+./meow < input9
+./meow < input10
+./meow < input11
+./meow < input12
+./meow < input13
+./meow < input14
+./meow < input15
+./meow < input16
+#./meow < input17
+#./meow < input18
+

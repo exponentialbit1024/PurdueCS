@@ -1,0 +1,57 @@
+>>> Question 1
+CarRentalSite Name: Hertz
+CarRentalSite City: Lafayette
+CarRentalSite Total Rentals: 6
+Most Popular Compact Car: Chevy Spark
+Total Days Rented: 15
+>>> Question 2
+Total Business Rentals in 2018-1: 2
+In Car Rental Sites:
+- Hertz: 36 days
+Total Business Rentals in 2018-2: 2
+In Car Rental Sites:
+- Alamo: 10 days
+- Hertz: 14 days
+Total Business Rentals in 2018-4: 1
+In Car Rental Sites:
+- Enterprise: 1 days
+Total Business Rentals in 2018-5: 3
+In Car Rental Sites:
+- Avis: 2 days
+- Budget: 3 days
+- Hertz: 25 days
+Total Business Rentals in 2018-6: 1
+In Car Rental Sites:
+- Alamo: 10 days
+>>> Question 3
+Least Profit in compact
+- Ford Focus: 4
+- Nissan Versa: 4
+- Toyota Yaris: 4
+Least Profit in luxury
+- Porsche: 35
+Least Profit in van
+- Chrysler: 2
+Most Profit in compact
+- Chevy Spark: 5
+Most Profit in luxury
+- Audi: 45
+Most Profit in van
+- Honda Odyssey: 9
+>>> Question 4
+CARRENTALSITEID    COMPACT     LUXURY	     SUV
+--------------- ---------- ---------- ----------
+	      1 	 1	    0	       0
+	      2 	 1	    0	       0
+	      3 	 2	    0	       0
+	      4 	 0	    1	       0
+	      5 	 0	    0	       1
+>>> Question 5
+CarRentalSiteId: 1
+CarRentalSiteName: Hertz
+CarName: Chevy: 20
+CarName: Chevy Spark: 10
+CarName: Chrysler: 10
+CarName: Honda CRV: 3
+CarRentalSiteId: 111
+Invalid CarRentalSiteId!

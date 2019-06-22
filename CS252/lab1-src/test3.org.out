@@ -1,0 +1,15 @@
+
+---- Running test3 ---
+
+---- MALLOC(0) TEST PASSED ---
+
+---- MALLOC TOO LARGE TEST PASSED ---
+
+-------------------
+HeapSize:	2097152 bytes
+# mallocs:	3
+# reallocs:	0
+# callocs:	0
+# frees:	0
+
+-------------------

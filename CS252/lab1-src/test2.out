@@ -1,0 +1,16 @@
+
+---- Running test2 ---
+FreeList: [offset:16,size:592992]->
+FreeList: [offset:2097168,size:597104]->[offset:16,size:592992]->
+FreeList: [offset:4194320,size:597104]->[offset:2097168,size:597104]->[offset:16,size:592992]->
+FreeList: [offset:6291472,size:597104]->[offset:4194320,size:597104]->[offset:2097168,size:597104]->[offset:16,size:592992]->
+FreeList: [offset:8388624,size:597104]->[offset:6291472,size:597104]->[offset:4194320,size:597104]->[offset:2097168,size:597104]->[offset:16,size:592992]->
+
+-------------------
+HeapSize:	10485760 bytes
+# mallocs:	6
+# reallocs:	0
+# callocs:	0
+# frees:	0
+
+-------------------

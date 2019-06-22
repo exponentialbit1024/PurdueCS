@@ -1,0 +1,17 @@
+
+---- Running test7 ---
+
+---- ALLOCATE ----
+FreeList: [offset:16,size:2092880]->
+
+---- FREE AND COALESCE BOTH SIDES ----
+FreeList: [offset:2092928,size:96]->[offset:16,size:2092880]->
+
+-------------------
+HeapSize:	2097152 bytes
+# mallocs:	5
+# reallocs:	0
+# callocs:	0
+# frees:	3
+
+-------------------
